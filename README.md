@@ -20,3 +20,5 @@ generate component feature/my-feature
 ```
 
 Generated file can be found in `src/component`
+
+[License](LICENSE)
