@@ -2,6 +2,7 @@
 
 import program from "commander";
 import { selectsComponent } from "./helper";
+import path from "path";
 
 const curDir = "./";
 const types = ["component"];

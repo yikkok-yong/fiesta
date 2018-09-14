@@ -6,7 +6,9 @@ import { component, pure_component, style } from "./templates/index";
 
 const SYSTEM_OS = os.platform();
 const delimiter = SYSTEM_OS.match(/(darwin|linux)/) ? "/" : "\\";
-const componentDefaultPath = "src/components";
+const opt = {
+  components: "src/components"
+};
 
 export let selectsComponent = (to, option = undefined) => {
   let componentPart = component;
@@ -27,7 +29,12 @@ export let generateComponent = (from, to) => {
   const file = paths[paths.length - 1];
   const className = file.replace(/^\w/, capitalizeFirstChar);
 
-  to = `${componentDefaultPath}/${to}`;
+  const hasOpt = getOption();
+  if (hasOpt) {
+    Object.assign(opt, hasOpt);
+  }
+
+  to = `${opt.components}/${to}`;
 
   shell.mkdir("-p", to);
   shell.chmod("-R", 755, to);
@@ -71,4 +78,14 @@ export let generateComponent = (from, to) => {
 
 export let capitalizeFirstChar = char => {
   return char.toUpperCase();
+};
+
+export let getOption = () => {
+  if (fs.existsSync(path.resolve("package.json"))) {
+    const fiestaOpt = require(path.resolve("package.json")).fiesta;
+
+    if (fiestaOpt) {
+      return fiestaOpt;
+    }
+  }
 };
