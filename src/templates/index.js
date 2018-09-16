@@ -42,3 +42,10 @@ const style = StyleSheet.create({
 
 export default style;
 `;
+
+export let test = `
+
+describe("TEST - ", () => {
+  it("", async () => {});
+});
+`;
