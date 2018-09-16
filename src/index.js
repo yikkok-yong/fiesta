@@ -1,11 +1,13 @@
 #! /usr/bin/env node
 
 import program from "commander";
-import { selectsComponent } from "./helper";
 import path from "path";
 
+import { generateComponent, generateTest } from "./helper";
+import { component, pure_component, test } from "./templates/index";
+
 const curDir = "./";
-const types = ["component"];
+const types = ["component", "test"];
 
 program
   .arguments("[type] [part]")
@@ -29,11 +31,20 @@ program
       return;
     }
 
-    if (program.pure) {
-      selectsComponent(name, "pure");
-      return;
-    }
+    switch (index) {
+      case 0:
+        if (program.pure) {
+          generateComponent(pure_component, name);
+          return;
+        }
 
-    selectsComponent(name);
+        generateComponent(component, name);
+        break;
+      case 1:
+        generateTest(test, name);
+        break;
+      default:
+        break;
+    }
   })
   .parse(process.argv);
