@@ -19,15 +19,26 @@ npm install && npm start
 ```
 generate component my-feature
 generate component feature/my-feature
+
+generate test login
 ```
 
 ## Overwrite default path
 
-Components will go to `src/component` as default, overwrite by providing opt to package.json
+| Parts      | Path            |
+| ---------- | --------------- |
+| Components | `src/component` |
+| Tests      | `e2e`           |
+
+overwrite by providing opt to package.json
 
 ```
 "fiesta": {
-    "components": "your/desired/path"
+    "components": "path/to/components/directory",
+    "tests": {
+        rootDir: "path/to/test/directory",
+        testFilePattern: default is "*.spec.js", you may overwrite the value here
+    }
 }
 ```
 
